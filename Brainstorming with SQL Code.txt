@@ -1,0 +1,148 @@
+FEATURES:
+
+-users can sign into the app with email and password
+
+-users can create recipies with ingredients and instructions
+
+-recipes can be marked as public or private
+
+-users can view other people’s recipes
+
+-ingredients from recipes can be added to user’s grocery lists
+
+-users can create their own occasions and assign recipes to occasions
+
+
+
+User id
+username
+email
+password
+
+Ingredients
+instructions
+post
+
+public/private
+	toggle global view settings
+
+allow others to view each others recipies
+
+grocery list
+	add to shopping list
+
+occasions
+	tag recipies to certain occasions
+
+TABLES:
+
+Users:
+User_id
+username
+password
+firstname
+lastname
+email
+
+Ingredient_names:
+ingredient_id
+name
+
+Recipie_Names:
+recipie_id
+name
+creator: User_id
+
+
+
+ACTUAL CODE:
+
+-- CREATE TABLE "users" (
+-- 	"user_id" serial PRIMARY KEY NOT NULL,
+-- 	"username" varchar(40) NOT NULL,
+-- 	"password" TEXT NOT NULL,
+-- 	"email" varchar(40) NOT NULL,
+-- 	"firstname" varchar(50) NOT NULL,
+-- 	"lastname" varchar(50) NOT NULL
+-- );
+
+-- INSERT INTO users (username, password, email, Firstname, Lastname)
+-- VALUES ('CyStark', 'nibbleshnarf', 'honkhonk@blarg.com', 'Cylus', 'Stark')
+
+
+-- CREATE TABLE "recipie" (
+-- 	"recipie_id" serial PRIMARY KEY NOT NULL,
+-- 	"name" varchar(40) NOT NULL,
+-- 	"creator" INTEGER REFERENCES users(user_id) NOT NULL,
+-- 	"instructions" TEXT NOT NULL,
+-- 	"privacy" BOOLEAN NOT NULL
+-- );
+
+-- CREATE TABLE "ingredients" (
+-- 	"ingredient_id" serial PRIMARY KEY NOT NULL,
+-- 	"name" varchar(40) NOT NULL
+-- );
+
+-- CREATE TABLE "ingredientrecipie" (
+-- 	"recipie_ingredient_id" SERIAL PRIMARY KEY NOT NULL,
+-- 	"ingredient_id" INTEGER REFERENCES ingredients(ingredient_id)  NOT NULL,
+-- 	"recipie_id" INTEGER REFERENCES recipie(recipie_id) NOT NULL
+-- );
+
+-- CREATE TABLE "grocerylist" (
+-- 	"Ingredient_user_id" SERIAL PRIMARY KEY NOT NULL,
+-- 	"Ingredient_id" INTEGER REFERENCES ingredients(ingredient_id) NOT NULL,
+-- 	"user_id" INTEGER REFERENCES users(user_id) NOT NULL
+-- );
+
+-- CREATE TABLE "occasions" (
+-- 	"occasion_id" SERIAL PRIMARY KEY NOT NULL,
+-- 	"name" VARCHAR(40) NOT NULL
+-- );
+
+-- INSERT INTO occasions (name)
+-- VALUES ('Christmas')
+
+-- CREATE TABLE "occasionrecipies" (
+-- 	occasion_recipie_id SERIAL PRIMARY KEY NOT NULL,
+-- 	occasion_id INTEGER REFERENCES occasions(occasion_id) NOT NULL,
+-- 	recipie_id INTEGER REFERENCES recipie(recipie_id) NOT NULL
+-- );
+privacy:public/private
+
+Grocery list:
+Ingredient_user_id
+	primary
+ingredient_id
+	foreign key
+user_id
+	foreign key
+
+Occasion tags:
+occasion_id
+name
+
+
+occasionRecipe:
+occasionRecipie_id
+occasion_id
+	foregn
+recipie_id
+	foreign
+
+Relationships:
+
+one-to-one
+
+one to many:
+	user/recipie
+		one user makes many recipes
+many to many:
+	recipies to ingredients
+		many recipies have ingredients
+		many ingredients can be in many recipies
+	occasionRecipie
+		many occasions to many recipies vise versa
+	grocery
+		
+		
